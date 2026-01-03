@@ -1,5 +1,6 @@
-import { createContext, useEffect } from "react";
+import { useEffect } from "react";
 import { createContext, useState } from "react";
+
 export const RestroContext = createContext();
 
 export const RestroProvider=({children})=>{
@@ -14,15 +15,18 @@ export const RestroProvider=({children})=>{
         const updated=[...restaurants,Restaurant]
         setRestaurants(updated);
         localStorage.setItem("evalData",JSON.stringify(updated))
-    }
+        alert("Successful addition");
+      }
     const updateButton=(newData,id)=>{
         
         const updated=restaurants.map((Data)=>{
                 return (Data.id===id ? newData:Data)
         });
         setRestaurants(updated)
-        localStorage.setItem("evalData",JSON.stringify(updated))
-    }
+        localStorage.setItem("evalData",JSON.stringify(updated));
+        alert("Successful update")
+    
+      }
     const deleteRestaurant=(id)=>{
         alert("Youre deleting a restro")
         const data=restaurants.filter((data)=>
@@ -31,7 +35,8 @@ export const RestroProvider=({children})=>{
         )
 setRestaurants(data);
         localStorage.setItem("evalData",JSON.stringify(data))
-    }
+    alert("Successful deletion")
+      }
 
     return(
     <RestroContext.Provider value={{restaurants,addButton, updateButton,deleteRestaurant}}>
@@ -39,4 +44,3 @@ setRestaurants(data);
     </RestroContext.Provider>
     )
 }
-export const usePro=useContext(RestroContext);

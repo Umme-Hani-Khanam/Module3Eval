@@ -6,6 +6,7 @@ const Login = () => {
 const [email,setEmail]=useState("");
 const[password,setPassword]=useState("");
 const navigate=useNavigate();
+
 const handleLogin=(e)=>{
     e.preventDefault();
     if(email ==="admin@gmail.com" && password==="admin1234")
@@ -22,7 +23,7 @@ const handleLogin=(e)=>{
     else{
         alert("Invalid email or password ")
         localStorage.setItem("isAdmin",true)
-        navigate('/login');
+        navigate('/');
     }
 
 }

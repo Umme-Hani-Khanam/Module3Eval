@@ -1,9 +1,12 @@
-import React, { useContext, useState } from 'react'
-// import {  usePro } from '../context/RestroContext'
+import React, { useContext } from 'react'
+import AdminDashboard from './AdminDashboard'
+// import { usePro } from '../context/RestroContext'
 
-const CustomerDashboard = (restaurants) => {
-// const restaurants=usePro();
-      return (
+const RestaurantCard = ({restaurants,isAdmin ,updateButton,deleteRestaurant}) => {
+
+   
+
+  return (
     <div>
       <p>Restaurant name='{restaurants.name}'
         <br/>
@@ -13,9 +16,14 @@ const CustomerDashboard = (restaurants) => {
 <br/>
 parking availability :{restaurants.parking}
       </p>
-      
+      {isAdmin && <>
+      <button onClick={updateButton} Navigate to="/admin/restaurants/update
+">Edit</button>
+      <button onClick={deleteRestaurant} >Delete</button>
+      </>}
 
-    </div>)
+    </div>
+  )
 }
 
-export default CustomerDashboard
+export default RestaurantCard

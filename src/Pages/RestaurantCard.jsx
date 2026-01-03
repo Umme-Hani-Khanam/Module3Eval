@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import AdminDashboard from './AdminDashboard'
-// import { usePro } from '../context/RestroContext'
 
 const RestaurantCard = ({restaurants,isAdmin ,updateButton,deleteRestaurant}) => {
 

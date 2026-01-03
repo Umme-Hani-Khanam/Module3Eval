@@ -1,34 +1,50 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Login from './Pages/Login'
-import ProtectedRoute from './Routes/ProtectedRoute'
-import AdminDashboard from './Pages/AdminDashboard'
-import CustomerDashboard from './Pages/CustomerDashboard'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login";
+import AdminDashboard from "./Pages/AdminDashboard";
+import CustomerDashboard from "./Pages/CustomerDashboard";
+
+import ProtectedRoute from "./Routes/ProtectedRoute";
+import { RestroProvider } from "./context/RestroContext";
 
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<Login/>}/>
-              <Route path='/admindashboard' element={
-                <ProtectedRoute>
-                  <AdminDashboard/>
-                </ProtectedRoute>}/>
+    <BrowserRouter>
+      <RestroProvider>
+        <Routes>
+        
+          <Route path="/" element={<Login />} />
 
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
 
-              
-      <Route path="/customerdashboard" element={
-        <ProtectedRoute>
-          <CustomerDashboard/>
-        </ProtectedRoute>
-      }/>
+          <Route
+            path="/admin/restaurants/update/:id"
+            element={
+              <ProtectedRoute>
+                <UpdateRestaurant />
+              </ProtectedRoute>
+            }
+          />
 
-             
-          </Routes>
-      </BrowserRouter>
-    </div>
-  )
-}
+          
+          <Route
+            path="/customers/dashboard"
+            element={
+              <ProtectedRoute>
+                <CustomerDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </RestroProvider>
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
