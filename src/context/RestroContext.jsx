@@ -1,41 +1,42 @@
-import { useContext } from "react";
+import { createContext, useEffect } from "react";
+import { createContext, useState } from "react";
+export const RestroContext = createContext();
 
-
-
-export const RestroContext=useContext();
-
-export const RestroProvider=()=>{
-const [inputData,setInputData]=useState({
-        restaurantId:"",
-        restaurantName:"",
-        address:"",
-        type:"",
-        parkingLot:true,
-        image:"https://coding-platform.s3.amazonaws.com/dev/lms/tickets/7524df6e-46fa-4506-8766-eca8da47c2f1/2izhqnTaNLdenHYF.jpeg"
-    
-    })
-    const addButton=(Restaurant,id)=>{
-        localStorage.setItem("evalData",Restaurant);
-        setInputData((prev)=>[...prev,...Restaurant,id=Date.now()])
-        setInputData( 
-        restaurantName="",
-        address="",
-        type="",
-        parkingLot=true,
-        image="https://coding-platform.s3.amazonaws.com/dev/lms/tickets/7524df6e-46fa-4506-8766-eca8da47c2f1/2izhqnTaNLdenHYF.jpeg"
-    )
-    }
-    const updateButton=()=>{
+export const RestroProvider=({children})=>{
+  const [restaurants, setRestaurants] = useState([]);
+  useEffect(()=>{
+    const data=JSON.parse(localStorage.getItem("evalData"))
+    ||[];
+    setRestaurants(data)
+  },[])
+    const addButton=(Restaurant)=>{
         
+        const updated=[...restaurants,Restaurant]
+        setRestaurants(updated);
+        localStorage.setItem("evalData",JSON.stringify(updated))
+    }
+    const updateButton=(newData,id)=>{
+        
+        const updated=restaurants.map((Data)=>{
+                return (Data.id===id ? newData:Data)
+        });
+        setRestaurants(updated)
+        localStorage.setItem("evalData",JSON.stringify(updated))
+    }
+    const deleteRestaurant=(id)=>{
+        alert("Youre deleting a restro")
+        const data=restaurants.filter((data)=>
+                data.id!==id
+
+        )
+setRestaurants(data);
+        localStorage.setItem("evalData",JSON.stringify(data))
     }
 
-    return
-(
-    <>
-    <RestroContext.Provider values={addButton}>
-        
+    return(
+    <RestroContext.Provider value={{restaurants,addButton, updateButton,deleteRestaurant}}>
+    {children}    
     </RestroContext.Provider>
-    </>
-)
+    )
 }
 export const usePro=useContext(RestroContext);

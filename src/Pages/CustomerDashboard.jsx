@@ -1,17 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+// import {  usePro } from '../context/RestroContext'
 
-const CustomerDashboard = () => {
-
-    return (
+const CustomerDashboard = (restaurants) => {
+// const restaurants=usePro();
+      return (
     <div>
-        <h2>Customer dashboard</h2>
-        <div>
-            
+      <p>Restaurant name='{restaurants.name}'
+        <br/>
+        Restaurant Address="{restaurants.address}"
+        <br/>
+        Type:{restaurants.cat}
+<br/>
+parking availability :{restaurants.parking}
+      </p>
+      
 
-        </div>
-        
-    </div>
-  )
+    </div>)
 }
 
 export default CustomerDashboard

@@ -1,23 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+// import { RestroContext } from '../context/RestroContext';
+import RestaurantCard from './RestaurantCard';
 
-const AdminDashboard = () => {
-    const [inputData,setInputData]=useState({
-        restaurantId:"",
-        restaurantName:"",
-        address:"",
-        type:"",
-        parkingLot:true,
-        image:"https://coding-platform.s3.amazonaws.com/dev/lms/tickets/7524df6e-46fa-4506-8766-eca8da47c2f1/2izhqnTaNLdenHYF.jpeg"
+const AdminDashboard = ({addButton}) => {
+    const [name,setName]=useState("");
+    const[cat,setCat]=useState("Rajasthani");
+    const[parking,setParking]=useState("Yes");
+const[address,setAddress]=useState("");
     
-    })
   return (
     <div>
         <h2>AdminDashboard</h2>
         <div className='sidebar'>
             <form>
-                <input type="text" name="name" value={restaurantName} placeholder='Enter Restaurant Name' onChange={(e)=>setInputData(e.target.value)}/>
-                <select id="category">
-                    <option value="rajashthani">Rajasthani</option>
+                <input type="text" name="name" value={name} placeholder='Enter Restaurant Name' onChange={(e)=>setName(e.target.value)}/>
+                <select id="category" onChange={(e)=>setCat(e.target.value)}>
+                    <option value="Rajashthani">Rajasthani</option>
                     <option value="Gujrati">Gujrati</option>
                     <option value="Mughlai">Mughlai</option>
                     <option value="Jain">Jain</option>
@@ -26,14 +24,17 @@ const AdminDashboard = () => {
                     <option value="South Indian">South Indian</option>
    
                 </select>
-                <select id="parking">
+                <input type="text" name="address" value={address} placeholder='Enter address' onChange={(e)=>setAddress(e.target.value)}/>
+                <select id="parking" onChange={(e)=>setParking(e.target.value)}>
                     <option value="Yes">Parking Lot yes</option>
                     <option value="No">Parking lot No</option>
                 </select>
-                <image url ="https://coding-platform.s3.amazonaws.com/dev/lms/tickets/7524df6e-46fa-4506-8766-eca8da47c2f1/2izhqnTaNLdenHYF.jpeg"/>
-                <button onClick={addButton}>Add</button>
+         <p> <image text ="https://coding-platform.s3.amazonaws.com/dev/lms/tickets/7524df6e-46fa-4506-8766-eca8da47c2f1/2izhqnTaNLdenHYF.jpeg"/>
+                <button onClick={addButton}>Add</button></p>      
             </form>
         </div>
+        
+        <RestaurantCard />
         </div>
   )
 }
